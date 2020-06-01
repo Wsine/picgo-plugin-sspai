@@ -1,15 +1,88 @@
-# SSPAI Image Replacer
+# PicGo plugin for sspai
 
-本仓库的目的是为了方便 Windows 用户在 [SSPAI 平台](https://sspai.com)上发布而自动上传图片到少数派图床而创造的，请勿用作其他用途。
+This repository is a [PicGo](https://github.com/PicGo/PicGo-Core) plugin implementation for conveniently and quickly uploading images to [SSPAI](sspai.com) website.
 
-Motivation：只有使用少数派图床的文章才能登陆 Matrix 精选和 SSPAI 首页
+## How to install
 
-Attention：同一文章多次重复使用该工具会重复增加少数派在七牛云存储数据，请注意
+1. Clone/Download this repository to PicGo configuration folder.
 
-## 使用方法
+In windows, it's `C:\Users\<your username>\.picgo\`
 
-如果你的文章配图没有防盗链，可以使用在线版本 https://wsine.github.io/sspai-img-replacer/
+In linux and mac, it's `~/.picgo/`
 
-如果你的文章配图存在防盗链，请下载 zip 压缩包后解压打开 `index.html`
+2. Create a folder named `node_modules` and make a soft link to this repository.
+3. Edit `package.json` with dependencies.
 
-输入在少数派平台绑定的账号密码（以开源保证安全），选择要替换图床的 markdown 文件，即会自动下载图片后上传到少数派图床并替换文章中的链接，然后新文件将会弹窗下载，该过程在文章多时比较耗时，请知悉。
+```json
+{
+  "dependencies": {
+    "picgo-plugin-sspai": "file:picgo-plugin-sspai"
+  }
+}
+```
+
+4. Edit `package-lock.json` like this.
+
+```json
+{
+  "name": "picgo-plugins",
+  "requires": true,
+  "lockfileVersion": 1,
+  "dependencies": {
+    "picgo-plugin-sspai": {
+      "version": "file:picgo-plugin-sspai"
+    }
+  }
+}
+```
+
+The final structure should be like this.
+
+```bash
+~/.picgo > tree
+.
+ config.json
+ node_modules
+  picgo-plugin-sspai <soft link>
+ package.json
+ package-lock.json
+ picgo.log
+ picgo-plugin-sspai
+   index.js
+   License
+   md5.min.js
+   package.json
+   README.md
+```
+
+## How to config
+
+Login in to your account in [sspai.com](sspai.com) website.
+
+Press F12 to open the console and the type:
+
+```javascript
+document.cookie.split('; sspai_cross_token=').pop().split(';').shift()
+```
+
+Replace the `cross_token` with the return string in `config.json`
+
+Example config file in PicGo.
+
+```json
+{
+  "picBed": {
+    "current": "sspai",
+    "uploader": "sspai",
+    "transformer": "base64",
+    "sspai": {
+      "cross_token": "<replace here>"
+    }
+  },
+  "picgoPlugins": {
+    "picgo-plugin-sspai": true
+  }
+}
+```
+
+That's all and enjoy !
