@@ -41,18 +41,18 @@ The final structure should be like this.
 ```bash
 ~/.picgo > tree
 .
- config.json
- node_modules
-  picgo-plugin-sspai <soft link>
- package.json
- package-lock.json
- picgo.log
- picgo-plugin-sspai
-   index.js
-   License
-   md5.min.js
-   package.json
-   README.md
+├── config.json
+├── node_modules
+│   └── picgo-plugin-sspai <soft link>
+├── package.json
+├── package-lock.json
+├── picgo.log
+└── picgo-plugin-sspai
+    ├── index.js
+    ├── License
+    ├── md5.min.js
+    ├── package.json
+    └── README.md
 ```
 
 ## How to config
